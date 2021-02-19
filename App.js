@@ -4,7 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import HomeScreen from "./src/screens/HomeScreen";
-import CipherScreen from './src/screens/CipherScreen';
+import EncipherScreen from './src/screens/EncipherScreen';
 import DecipherScreen from './src/screens/DecipherScreen';
 import DemoScreen from './src/screens/DemoScreen';
 import CipherInfoScreen from './src/screens/CipherInfoScreen';
@@ -19,7 +19,7 @@ const CipherTab = createBottomTabNavigator();
 const CipherTabScreen = () => (
   <CipherTab.Navigator>
         <CipherTab.Screen name="HomeStackScreen" component={HomeStackScreen} options={{ title: "Home" }}/>
-        <CipherTab.Screen name="CipherScreen" component={CipherScreen} options={{ title: "Encipher" }}/>
+        <CipherTab.Screen name="CipherScreen" component={EncipherScreen} options={{ title: "Encipher" }}/>
         <CipherTab.Screen name="DecipherScreen" component={DecipherScreen} options={{ title: "Decipher" }}/>
         <CipherTab.Screen name="DemoScreen" component={DemoScreen} options={{ title: "Demo" }}/>
   </CipherTab.Navigator>

@@ -63,7 +63,7 @@ function cipher(word, key) {
 }
 
 
-const CipherScreen = ({ navigation }) => {
+const EncipherScreen = ({ navigation }) => {
     const [thisKey, setKey] = useState('');
     const [thisMessage, setMessage] = useState('');
     const [thisCiphertext, setCiphertext] = useState('');
@@ -144,4 +144,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default CipherScreen;
+export default EncipherScreen;
