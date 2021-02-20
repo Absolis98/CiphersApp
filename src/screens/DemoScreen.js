@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, Text, TextInput, Button, FlatList, TouchableOpacity } from 'react-native';
-
+import { LinearGradient } from 'expo-linear-gradient';
 
 function trimString(word) {
   let newWord = "";
@@ -127,15 +127,15 @@ const CipherScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Text>Please enter a key and a message to encipher.</Text>
-      <Text>Key:</Text>
+      <Text style={styles.Text}>Please enter a key and a message to encipher.</Text>
+      <Text style={styles.Text}>Key:</Text>
       <TextInput
         style={styles.input}
         keyboardType="number-pad"
         value={thisKey.toString()}
         onChangeText={(newValue) => setKey(newValue)}
       />
-      <Text>Message:</Text>
+      <Text style={styles.Text}>Message:</Text>
       <TextInput
         style={styles.input}
         autoCapitalize="none"
@@ -153,7 +153,7 @@ const CipherScreen = ({ navigation }) => {
                 editable={false}
             /> */}
 
-      <Text>Output:</Text>
+      <Text style={styles.Text}>Output:</Text>
       <TextInput
         style={styles.output}
         multiline={true}
@@ -180,8 +180,11 @@ const CipherScreen = ({ navigation }) => {
         }}
       />
 
+<View style={styles.rowContainer}>
+  <View style={styles.buttonContainer}>
+  <LinearGradient style={styles.button} colors={['#43C6AC', '#191654'] } start={[0,0]}
+end={[1,1]} >
       <TouchableOpacity 
-                style={styles.button}
                 onPress={(messagez, keyz) => {
                     messagez = thisMessage;
                     keyz = parseInt(thisKey);
@@ -189,11 +192,14 @@ const CipherScreen = ({ navigation }) => {
                     setCiphertext(cipher(messagez, keyz));
                 }}
                 >
-                    <Text style={styles.Text}>Encipher</Text>
+                    <Text style={styles.buttonText}>Encipher</Text>
               </TouchableOpacity>
-
-      <TouchableOpacity 
-                style={styles.button}
+</LinearGradient>
+</View>
+<View style={styles.buttonContainer}>
+  <LinearGradient style={styles.button} colors={['#43C6AC', '#191654'] } start={[0,0]}
+end={[1,1]} >
+        <TouchableOpacity 
                 onPress={(messagez, keyz) => {
                     messagez = thisMessage;
                     keyz = parseInt(thisKey);
@@ -201,19 +207,24 @@ const CipherScreen = ({ navigation }) => {
                     setCiphertext(decipher(messagez, keyz));
                 }}
                 >
-                    <Text style={styles.Text}>Decipher</Text>
+                    <Text style={styles.buttonText}>Decipher</Text>
               </TouchableOpacity>
+</LinearGradient>
+</View>
+</View>
 
-      <TouchableOpacity
-                style={styles.button}
+<LinearGradient style={styles.button} colors={['#43C6AC', '#191654'] } start={[0,0]}
+end={[1,1]} >
+        <TouchableOpacity
                 onPress={() => {
                     setCiphertext("");
                     setKey("");
                     setMessage("");
                 }}
               >
-                    <Text style={styles.Text}>Clear</Text>
+                    <Text style={styles.buttonText}>Clear</Text>
               </TouchableOpacity>
+</LinearGradient>
     </View>
 
   )
@@ -221,7 +232,8 @@ const CipherScreen = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
-    justifyContent: "center"
+    justifyContent: "center",
+    flex: 1
   },
   input: {
     margin: 15,
@@ -243,7 +255,23 @@ const styles = StyleSheet.create({
     backgroundColor:'#00BCD4',
     borderRadius: 10,
     borderWidth: 1
+  },
+  Text:{
+    marginLeft: 20,
+  },
+  buttonText:{
+    color: 'white',
+    textAlign: 'center'
+  },
+  rowContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
 },
+  buttonContainer: {
+    flex: 1,
+}
 });
 
 export default CipherScreen;
