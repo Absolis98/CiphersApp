@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, Text, TextInput, Button, FlatList } from 'react-native';
+import { View, StyleSheet, Text, TextInput, Button, FlatList, TouchableOpacity } from 'react-native';
 
 
 function trimString(word) {
@@ -180,37 +180,40 @@ const CipherScreen = ({ navigation }) => {
         }}
       />
 
-      <Button
-        title="Encipher"
-        style={styles.button}
-        onPress={(messagez, keyz) => {
-          messagez = thisMessage;
-          keyz = parseInt(thisKey);
-          console.log(messagez, keyz);
-          setOutput(cipher(messagez, keyz));
+      <TouchableOpacity 
+                style={styles.button}
+                onPress={(messagez, keyz) => {
+                    messagez = thisMessage;
+                    keyz = parseInt(thisKey);
+                    console.log(typeof(messagez), typeof(keyz));
+                    setCiphertext(cipher(messagez, keyz));
+                }}
+                >
+                    <Text style={styles.Text}>Encipher</Text>
+              </TouchableOpacity>
 
-        }}
-      />
+      <TouchableOpacity 
+                style={styles.button}
+                onPress={(messagez, keyz) => {
+                    messagez = thisMessage;
+                    keyz = parseInt(thisKey);
+                    console.log(messagez,keyz);
+                    setCiphertext(decipher(messagez, keyz));
+                }}
+                >
+                    <Text style={styles.Text}>Decipher</Text>
+              </TouchableOpacity>
 
-      <Button
-        title="Decipher"
-        style={styles.button}
-        onPress={(messagez, keyz) => {
-          messagez = thisOutput;
-          keyz = parseInt(thisKey);
-          console.log(messagez, keyz);
-          setOutput(decipher(messagez, keyz));
-        }}
-      />
-      <Button
-        title="Clear"
-        style={styles.button}
-        onPress={() => {
-          setKey("");
-          setMessage("");
-          setOutput("");
-        }}
-      />
+      <TouchableOpacity
+                style={styles.button}
+                onPress={() => {
+                    setCiphertext("");
+                    setKey("");
+                    setMessage("");
+                }}
+              >
+                    <Text style={styles.Text}>Clear</Text>
+              </TouchableOpacity>
     </View>
 
   )
@@ -234,9 +237,13 @@ const styles = StyleSheet.create({
   button: {
     paddingHorizontal: 20,
     paddingVertical: 10,
+    marginLeft:30,
+    marginRight:30,
     marginVertical: 10,
-    borderRadius: 5
-  }
+    backgroundColor:'#00BCD4',
+    borderRadius: 10,
+    borderWidth: 1
+},
 });
 
 export default CipherScreen;
