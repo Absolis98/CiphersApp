@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, Text, TextInput, Button, TouchableOpacity } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
 
 
 function trimString(word) {
@@ -124,8 +125,9 @@ const DecipherScreen = ({ navigation }) => {
                 editable={false}
             />
 
+<LinearGradient style={styles.button} colors={['#43C6AC', '#191654'] } start={[0,0]}
+end={[1,1]} >
             <TouchableOpacity 
-                style={styles.button}
                 onPress={(messagez, keyz) => {
                     messagez = thisMessage;
                     keyz = parseInt(thisKey);
@@ -133,19 +135,22 @@ const DecipherScreen = ({ navigation }) => {
                     setCiphertext(decipher(messagez, keyz));
                 }}
                 >
-                    <Text style={styles.Text}>Decipher</Text>
+                    <Text style={styles.buttonText}>Decipher</Text>
                 </TouchableOpacity>
-
+                </LinearGradient>
+                
+                <LinearGradient style={styles.button} colors={['#43C6AC', '#191654'] } start={[0,0]}
+end={[1,1]} >
             <TouchableOpacity
-                style={styles.button}
                 onPress={() => {
                     setCiphertext("");
                     setKey("");
                     setMessage("");
                 }}
               >
-                    <Text style={styles.Text}>Clear</Text>
+                    <Text style={styles.buttonText}>Clear</Text>
               </TouchableOpacity>
+              </LinearGradient>
         </View>
         
     )
@@ -176,11 +181,13 @@ const styles = StyleSheet.create({
       borderRadius: 10,
       borderWidth: 1
   },
-  Text:{
-    paddingVertical: 10,
-    textAlign: 'center'
-
-}
+    Text:{
+      marginLeft: 20,
+  },
+    buttonText:{
+      color: 'white',
+      textAlign: 'center'
+  }
 });
 
 export default DecipherScreen;
