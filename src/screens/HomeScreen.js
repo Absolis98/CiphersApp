@@ -13,23 +13,11 @@ const HomeScreen = ({ navigation }) => {
                 number greater than or equal to 2. Once both values are set, we create a table of l columns and k rows. The plaintext is 
                 written down as a sequence of diagonals and is then read off as a sequence of rows.
             </Text>
-            <Button
-                title="More Info: Enciphering"
-                onPress={() => navigation.push("CipherInfoScreen")}
-            />
-            <Button
-                title="More Info: Deciphering"
-                onPress={() => navigation.push("DecipherInfoScreen")}
-            />
-            
-            <Text>Navigation Instructions:</Text>
-            <View>
-                <Text>Use the tab navigation buttons located at the bottom of the screen to switch between screens</Text>
-                <Text>Cipher: Enter a message and key to receive the ciphertext</Text>
-                <Text>Decipher: Enter ciphertext and the key to receive the plaintext</Text>
-                <Text>Demo: Play with examples</Text>
-            </View>
-            
+            <Text>
+                For example, assume the value k=3
+            </Text>
+            <Image style={styles.image} source={require('../../assets/example.png')}/>
+
         </View>
     )
 }
@@ -44,9 +32,9 @@ const styles = StyleSheet.create({
         fontWeight: "bold"
     },
     image: {
-        flex: 1,
-        width: 50,
-        height: 50,
+        
+        width: '105%',
+        height: '30%',
         resizeMode: 'contain'
     },
     navText: {

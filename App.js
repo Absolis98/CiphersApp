@@ -1,4 +1,5 @@
 import React from 'react';
+import { Button, Alert } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -40,7 +41,14 @@ function App () {
     <NavigationContainer>
 
       <Stack.Navigator>
-        <Stack.Screen  name="CiphersScreen" component={CiphersScreen} options={{ title: "Ciphers" }}/>
+        <Stack.Screen  name="CiphersScreen" component={CiphersScreen} options={{
+            title: "Ciphers",
+            headerRight: () => (
+              <Button 
+                onPress={() => Alert.alert("Help", "Select a cipher. Use the tab navigation buttons to switch between screens.")}
+                title="?"
+              />
+            ),}}/>
         <Stack.Screen  name="CipherTabScreen" component={CipherTabScreen} options={{ title: "K-Rail Fence Cipher" }}/>
       </Stack.Navigator>
       

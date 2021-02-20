@@ -115,7 +115,7 @@ const CipherScreen = ({ navigation }) => {
   const [thisCiphertext, setCiphertext] = useState('');
   const [thisOutput, setOutput] = useState('');
   let buttonList = [
-    { name: "Example 1", message: "Hello World!", key: "2" },
+    { name: "Demo 1", message: "Hello World!", key: "2" },
     { name: "Example 2", message: "Dread it? Run from it? Destiny arrives all the same, and now it's here. Or should I say: I am", key: "4" },
     { name: "Example 3", message: "I used the Stones to destroy the Stones. It nearly killed me, but the work is done. It always will be.", key: "11" },
     { name: "Example 4", message: "Perfectly balanced... as all things should be", key: "7" },
@@ -185,8 +185,8 @@ const CipherScreen = ({ navigation }) => {
                 onPress={(messagez, keyz) => {
                     messagez = thisMessage;
                     keyz = parseInt(thisKey);
-                    console.log(typeof(messagez), typeof(keyz));
-                    setCiphertext(cipher(messagez, keyz));
+                    setCiphertext(cipher(messagez, keyz))
+                    setOutput(thisCiphertext);
                 }}
                 >
                     <Text style={styles.Text}>Encipher</Text>
@@ -195,10 +195,10 @@ const CipherScreen = ({ navigation }) => {
       <TouchableOpacity 
                 style={styles.button}
                 onPress={(messagez, keyz) => {
-                    messagez = thisMessage;
+                    messagez = thisCiphertext;
                     keyz = parseInt(thisKey);
-                    console.log(messagez,keyz);
-                    setCiphertext(decipher(messagez, keyz));
+                    
+                    setOutput(decipher(messagez, keyz));
                 }}
                 >
                     <Text style={styles.Text}>Decipher</Text>
@@ -210,6 +210,7 @@ const CipherScreen = ({ navigation }) => {
                     setCiphertext("");
                     setKey("");
                     setMessage("");
+                    setOutput("");
                 }}
               >
                     <Text style={styles.Text}>Clear</Text>
