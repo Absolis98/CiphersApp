@@ -143,7 +143,7 @@ const CipherScreen = ({ navigation }) => {
     {
       name: "Demo 2",
       message:
-        "Dread it? Run from it? Destiny arrives all the same, and now it's here. Or should I say: I am",
+        "DTRDYEH,WESIARI?FO?ENAVSTEEAOIHRRHDSIMEDRNMTSIRIALSMNNTSEOOLA:AUITRLAD'.UY",
       key: "4",
     },
     {
@@ -217,7 +217,7 @@ const CipherScreen = ({ navigation }) => {
         style={styles.output}
         multiline={true}
         value={thisOutput}
-        editable={false}
+        // editable={false}
       />
 
       <View style={styles.listContainer}>
@@ -259,8 +259,9 @@ const CipherScreen = ({ navigation }) => {
             onPress={(messagez, keyz) => {
               messagez = thisMessage;
               keyz = parseInt(thisKey);
-              setCiphertext(cipher(messagez, keyz));
-              setOutput(thisCiphertext);
+              let ciphertext = cipher(messagez, keyz);
+              setOutput(ciphertext);
+              setCiphertext(ciphertext);
             }}
           >
             <LinearGradient

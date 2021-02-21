@@ -30,7 +30,7 @@ const HomeScreen = ({ navigation }) => {
           style={styles.image}
           source={require("../../assets/example.png")}
         />
-        <Text>The ciphertext will be:</Text>
+        <Text>The ciphertext is read across as:</Text>
         <Text>HOELRYLA</Text>
         <Text>
           To decipher, create a table with l columns and k rows. Insert
@@ -40,9 +40,18 @@ const HomeScreen = ({ navigation }) => {
           style={styles.image}
           source={require("../../assets/placeholders.png")}
         />
+        <Text>
+          Replace the placeholders with characters from the ciphertext. Start
+          from the top left and make your way across each row.
+        </Text>
         <Image
           style={styles.image}
           source={require("../../assets/replace.png")}
+        />
+        <Text>Read along the diagonals to obtain the original message.</Text>
+        <Image
+          style={styles.image}
+          source={require("../../assets/example.png")}
         />
       </View>
     </ScrollView>
