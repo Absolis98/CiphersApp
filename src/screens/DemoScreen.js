@@ -95,7 +95,7 @@ function decipher(word, key) {
   )
     return () =>
       alert(
-        "Please enter a valid Key and Ciphertext. The key must be equal to or greater than 2."
+        "Please ensure you have entered a valid Key and Ciphertext. The key must be equal to or greater than 2."
       );
   word = trimString(word);
   let placeholder = createPlaceholder(word.length);
@@ -136,48 +136,56 @@ function decipher(word, key) {
 const CipherScreen = ({ navigation }) => {
   const [thisKey, setKey] = useState("");
   const [thisMessage, setMessage] = useState("");
+  const [thisPlaintext, setPlaintext] = useState("");
   const [thisCiphertext, setCiphertext] = useState("");
   const [thisOutput, setOutput] = useState("");
   let buttonList = [
-    { name: "Demo 1", message: "Hello World!", key: "2" },
+    { name: "Demo 1", type: "plaintext", message: "Hello World!", key: "2" },
     {
       name: "Demo 2",
+      type: "ciphertext",
       message:
         "DTRDYEH,WESIARI?FO?ENAVSTEEAOIHRRHDSIMEDRNMTSIRIALSMNNTSEOOLA:AUITRLAD'.UY",
       key: "4",
     },
     {
       name: "Demo 3",
+      type: "plaintext",
       message:
         "I used the Stones to destroy the Stones. It nearly killed me, but the work is done. It always will be.",
       key: "11",
     },
     {
       name: "Demo 4",
-      message: "Perfectly balanced... as all things should be",
+      type: "ciphertext",
+      message: "PALDELNLTLBRACAHUEFBESIOEYDANHCL..GST.S",
       key: "7",
     },
     {
       name: "Demo 5",
+      type: "plaintext",
       message:
         "I know what it’s like to lose. To feel so desperately that you’re right, yet to fail nonetheless.",
       key: "2",
     },
     {
       name: "Demo 6",
+      type: "ciphertext",
       message:
-        "Little one, it’s a simple calculus. This universe is finite, its resources, finite. If life is left unchecked, life will cease to exist. It needs correcting.",
+        "LUTEISNIECATIIN.LSTHVIILELTEFFITE.R,LWO.OSSSIEEGNUEEFFXNELICEIII,USRILSTICFUS,TCTLIOLD.E’ANSEEIRSCIEFKTRAETRTCNOSLESUEECIP,TNHESMICD",
       key: "18",
     },
     {
       name: "Demo 7",
+      type: "plaintext",
       message:
         "Fun isn’t something one considers when balancing the universe. But this… does put a smile on my face.",
       key: "6",
     },
     {
       name: "Demo 8",
-      message: "The hardest choices require the strongest wills.",
+      type: "ciphertext",
+      message: "TSGHERNEECEOSHIQRTAOUTWRHISIDCRELETEHL.STS",
       key: "9",
     },
   ];
@@ -230,6 +238,13 @@ const CipherScreen = ({ navigation }) => {
             return (
               <TouchableOpacity
                 onPress={() => {
+                  if (item.type === "plaintext") {
+                    setPlaintext(item.message);
+                    setCiphertext("");
+                  } else if (item.type === "ciphertext") {
+                    setCiphertext(item.message);
+                    setPlaintext("");
+                  }
                   setKey(item.key);
                   setMessage(item.message);
                   setOutput("");
@@ -257,11 +272,14 @@ const CipherScreen = ({ navigation }) => {
         <View style={styles.buttonContainer}>
           <TouchableOpacity
             onPress={(messagez, keyz) => {
-              messagez = thisMessage;
+              messagez = thisPlaintext;
               keyz = parseInt(thisKey);
               let ciphertext = cipher(messagez, keyz);
-              setOutput(ciphertext);
-              setCiphertext(ciphertext);
+              console.log(typeof ciphertext);
+              if (!(typeof ciphertext === "function")) {
+                setCiphertext(ciphertext);
+                setOutput(ciphertext);
+              }
             }}
           >
             <LinearGradient
@@ -281,8 +299,12 @@ const CipherScreen = ({ navigation }) => {
             onPress={(messagez, keyz) => {
               messagez = thisCiphertext;
               keyz = parseInt(thisKey);
-
-              setOutput(decipher(messagez, keyz));
+              let plaintext = decipher(messagez, keyz);
+              console.log(typeof plaintext);
+              if (!(typeof plaintext === "function")) {
+                setPlaintext(plaintext);
+                setOutput(plaintext);
+              }
             }}
           >
             <LinearGradient
@@ -301,6 +323,7 @@ const CipherScreen = ({ navigation }) => {
       <TouchableOpacity
         onPress={() => {
           setCiphertext("");
+          setPlaintext("");
           setKey("");
           setMessage("");
           setOutput("");
