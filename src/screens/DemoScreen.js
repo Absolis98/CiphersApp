@@ -210,7 +210,11 @@ const CipherScreen = ({ navigation }) => {
           autoCorrect={false}
           value={thisMessage}
           numberOfLines={5}
-          onChangeText={(newValue) => setMessage(newValue)}
+          onChangeText={(newValue) => {
+            setMessage(newValue);
+            setPlaintext(newValue);
+            setCiphertext(newValue);
+          }}
         />
 
         {/* <Text>Ciphertext:</Text>
