@@ -22,7 +22,7 @@ const CiphersScreen = ({ navigation }) => {
       <TouchableOpacity onPress={() => navigation.push("CipherTabScreen")}>
         <LinearGradient
           style={styles.button}
-          colors={["#43C6AC", "#191654"]}
+          colors={["#a3ddcb", "#03506f"]}
           start={[0, 0]}
           end={[1, 1]}
         >

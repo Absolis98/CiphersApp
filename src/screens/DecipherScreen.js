@@ -111,98 +111,118 @@ const DecipherScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.Text}>
-        Please enter a key and a ciphertext to decipher.
-      </Text>
-      <Text style={styles.Text}>Key:</Text>
-      <TextInput
-        style={styles.input}
-        keyboardType="number-pad"
-        value={thisKey.toString()}
-        onChangeText={(newValue) => setKey(newValue)}
-      />
-      <Text style={styles.Text}>Ciphertext:</Text>
-      <TextInput
-        style={styles.input}
-        autoCapitalize="none"
-        multiline={true}
-        autoCorrect={false}
-        value={thisMessage}
-        onChangeText={(newValue) => setMessage(newValue)}
-      />
+      <View style={{ flex: 5 }}>
+        <Text style={styles.Text}>
+          Please enter a key and a ciphertext to decipher.
+        </Text>
+        <Text style={styles.Text}>Key:</Text>
+        <TextInput
+          style={styles.input}
+          keyboardType="number-pad"
+          value={thisKey.toString()}
+          onChangeText={(newValue) => setKey(newValue)}
+        />
+        <Text style={styles.Text}>Ciphertext:</Text>
+        <TextInput
+          style={styles.input}
+          autoCapitalize="none"
+          multiline={true}
+          autoCorrect={false}
+          value={thisMessage}
+          onChangeText={(newValue) => setMessage(newValue)}
+        />
 
-      <Text style={styles.Text}>Plaintext:</Text>
-      <TextInput
-        style={styles.output}
-        multiline={true}
-        value={thisCiphertext}
-        editable={false}
-      />
+        <Text style={styles.Text}>Plaintext:</Text>
+        <TextInput
+          style={styles.output}
+          multiline={true}
+          value={thisCiphertext}
+          editable={false}
+        />
+      </View>
 
-      {/* Decipher Button */}
-      <TouchableOpacity
-        onPress={(messagez, keyz) => {
-          messagez = thisMessage;
-          keyz = parseInt(thisKey);
-          console.log(messagez, keyz);
-          setCiphertext(decipher(messagez, keyz));
+      <View
+        style={{
+          flex: 1,
+          flexDirection: "row",
+          justifyContent: "space-around",
         }}
       >
-        <LinearGradient
-          style={styles.button}
-          colors={["#43C6AC", "#191654"]}
-          start={[0, 0]}
-          end={[1, 1]}
+        {/* Decipher Button */}
+        <TouchableOpacity
+          onPress={(messagez, keyz) => {
+            messagez = thisMessage;
+            keyz = parseInt(thisKey);
+            console.log(messagez, keyz);
+            setCiphertext(decipher(messagez, keyz));
+          }}
         >
-          <Text style={styles.buttonText}>Decipher</Text>
-        </LinearGradient>
-      </TouchableOpacity>
+          <LinearGradient
+            style={styles.button}
+            colors={["#43C6AC", "#191654"]}
+            start={[0, 0]}
+            end={[1, 1]}
+          >
+            <Text style={styles.buttonText}>Decipher</Text>
+          </LinearGradient>
+        </TouchableOpacity>
 
-      {/* Clear Button */}
-      <TouchableOpacity
-        onPress={() => {
-          setCiphertext("");
-          setKey("");
-          setMessage("");
-        }}
-      >
-        <LinearGradient
-          style={styles.button}
-          colors={["#43C6AC", "#191654"]}
-          start={[0, 0]}
-          end={[1, 1]}
+        {/* Clear Button */}
+        <TouchableOpacity
+          onPress={() => {
+            setCiphertext("");
+            setKey("");
+            setMessage("");
+          }}
         >
-          <Text style={styles.buttonText}>Clear</Text>
-        </LinearGradient>
-      </TouchableOpacity>
+          <LinearGradient
+            style={styles.button}
+            colors={["#43C6AC", "#191654"]}
+            start={[0, 0]}
+            end={[1, 1]}
+          >
+            <Text style={styles.buttonText}>Clear</Text>
+          </LinearGradient>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     justifyContent: "center",
+    backgroundColor: "#ffe3de",
   },
   input: {
     margin: 15,
+    paddingHorizontal: 10,
     borderColor: "black",
     borderWidth: 1,
+    borderRadius: 10,
+    backgroundColor: "white",
   },
   output: {
     margin: 15,
+    color: "white",
+    textAlign: "center",
+    fontWeight: "700",
+    fontSize: 20,
     color: "black",
     borderColor: "black",
     borderWidth: 1,
+    borderRadius: 10,
+    backgroundColor: "white",
   },
   button: {
-    paddingHorizontal: 20,
-    paddingVertical: 10,
-    marginLeft: 30,
-    marginRight: 30,
     marginVertical: 10,
     backgroundColor: "#00BCD4",
     borderRadius: 10,
     borderWidth: 1,
+    height: 75,
+    justifyContent: "center",
+    width: 145,
   },
   Text: {
     marginLeft: 20,
@@ -210,6 +230,8 @@ const styles = StyleSheet.create({
   buttonText: {
     color: "white",
     textAlign: "center",
+    fontWeight: "700",
+    fontSize: 20,
   },
 });
 
