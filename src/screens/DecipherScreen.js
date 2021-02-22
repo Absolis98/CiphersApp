@@ -11,11 +11,8 @@ import { LinearGradient } from "expo-linear-gradient";
 
 function trimString(word) {
   let newWord = "";
-  for (let i = 0; i < word.length; i++) {
-    if (word[i] !== " ") {
-      newWord += word[i];
-    }
-  }
+  newWord = word.replace(" ", "");
+  newWord = newWord.replace(/(\r\n|\n|\r)/gm, "");
   return newWord.toUpperCase();
 }
 
@@ -117,9 +114,10 @@ const DecipherScreen = ({ navigation }) => {
         </Text>
         <Text style={styles.Text}>Key:</Text>
         <TextInput
-          style={styles.input}
+          style={[styles.input, { paddingTop: 0 }]}
           keyboardType="number-pad"
           value={thisKey.toString()}
+          numberOfLines={1}
           onChangeText={(newValue) => setKey(newValue)}
         />
         <Text style={styles.Text}>Ciphertext:</Text>
@@ -129,6 +127,8 @@ const DecipherScreen = ({ navigation }) => {
           multiline={true}
           autoCorrect={false}
           value={thisMessage}
+          numberOfLines={8}
+          textAlignVertical={"top"}
           onChangeText={(newValue) => setMessage(newValue)}
         />
 
@@ -138,6 +138,8 @@ const DecipherScreen = ({ navigation }) => {
           multiline={true}
           value={thisCiphertext}
           editable={false}
+          textAlignVertical={"top"}
+          numberOfLines={8}
         />
       </View>
 
@@ -146,6 +148,7 @@ const DecipherScreen = ({ navigation }) => {
           flex: 1,
           flexDirection: "row",
           justifyContent: "space-around",
+          backgroundColor: "#a3ddcb",
         }}
       >
         {/* Decipher Button */}
@@ -198,6 +201,7 @@ const styles = StyleSheet.create({
   input: {
     margin: 15,
     paddingHorizontal: 10,
+    paddingTop: 10,
     borderColor: "black",
     borderWidth: 1,
     borderRadius: 10,
@@ -205,10 +209,8 @@ const styles = StyleSheet.create({
   },
   output: {
     margin: 15,
-    color: "white",
-    textAlign: "center",
-    fontWeight: "700",
-    fontSize: 20,
+    paddingHorizontal: 10,
+    paddingTop: 10,
     color: "black",
     borderColor: "black",
     borderWidth: 1,

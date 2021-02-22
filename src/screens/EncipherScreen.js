@@ -11,11 +11,8 @@ import { LinearGradient } from "expo-linear-gradient";
 
 function trimString(word) {
   let newWord = "";
-  for (let i = 0; i < word.length; i++) {
-    if (word[i] !== " ") {
-      newWord += word[i];
-    }
-  }
+  newWord = word.replace(" ", "");
+  newWord = newWord.replace(/(\r\n|\n|\r)/gm, "");
   return newWord.toUpperCase();
 }
 
@@ -89,18 +86,21 @@ const EncipherScreen = ({ navigation }) => {
         </Text>
         <Text style={styles.Text}>Key:</Text>
         <TextInput
-          style={styles.input}
+          style={[styles.input, { paddingTop: 0 }]}
           keyboardType="number-pad"
           value={thisKey.toString()}
+          numberOfLines={1}
           onChangeText={(newValue) => setKey(newValue)}
         />
         <Text style={styles.Text}>Message:</Text>
         <TextInput
           style={styles.input}
           autoCapitalize="none"
-          multiline={true}
+          multiline
           autoCorrect={false}
           value={thisMessage}
+          numberOfLines={8}
+          textAlignVertical={"top"}
           onChangeText={(newValue) => setMessage(newValue)}
         />
 
@@ -110,6 +110,8 @@ const EncipherScreen = ({ navigation }) => {
           multiline={true}
           value={thisCiphertext}
           editable={false}
+          textAlignVertical={"top"}
+          numberOfLines={8}
         />
       </View>
 
@@ -118,6 +120,7 @@ const EncipherScreen = ({ navigation }) => {
           flex: 1,
           flexDirection: "row",
           justifyContent: "space-around",
+          backgroundColor: "#a3ddcb",
         }}
       >
         {/* Encipher Button */}
@@ -132,7 +135,7 @@ const EncipherScreen = ({ navigation }) => {
         >
           <LinearGradient
             style={styles.button}
-            colors={["#a3ddcb", "#03506f"]}
+            colors={["#43C6AC", "#191654"]}
             start={[0, 0]}
             end={[1, 1]}
           >
@@ -150,7 +153,7 @@ const EncipherScreen = ({ navigation }) => {
         >
           <LinearGradient
             style={styles.button}
-            colors={["#a3ddcb", "#03506f"]}
+            colors={["#43C6AC", "#191654"]}
             start={[0, 0]}
             end={[1, 1]}
           >
@@ -171,6 +174,7 @@ const styles = StyleSheet.create({
   input: {
     margin: 15,
     paddingHorizontal: 10,
+    paddingTop: 10,
     borderColor: "black",
     borderWidth: 1,
     borderRadius: 10,
@@ -178,10 +182,8 @@ const styles = StyleSheet.create({
   },
   output: {
     margin: 15,
-    color: "white",
-    textAlign: "center",
-    fontWeight: "700",
-    fontSize: 20,
+    paddingHorizontal: 10,
+    paddingTop: 10,
     color: "black",
     borderColor: "black",
     borderWidth: 1,

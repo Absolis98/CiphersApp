@@ -35,10 +35,11 @@ const CipherTabScreen = () => (
       },
     })}
     tabBarOptions={{
+      // keyboardHidesTabBar: true,
       style: {
-        backgroundColor: "#03506f", //color you want to change
+        backgroundColor: "#03506f",
       },
-      activeTintColor: "white",
+      activeTintColor: "#a3ddcb",
       inactiveTintColor: "white",
     }}
   >

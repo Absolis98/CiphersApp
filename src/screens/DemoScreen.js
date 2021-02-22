@@ -7,17 +7,13 @@ import {
   Button,
   FlatList,
   TouchableOpacity,
-  ScrollView,
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 
 function trimString(word) {
   let newWord = "";
-  for (let i = 0; i < word.length; i++) {
-    if (word[i] !== " ") {
-      newWord += word[i];
-    }
-  }
+  newWord = word.replace(" ", "");
+  newWord = newWord.replace(/(\r\n|\n|\r)/gm, "");
   return newWord.toUpperCase();
 }
 
@@ -194,30 +190,30 @@ const CipherScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <View style={{ flex: 4 }}>
-        <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-          <Text style={styles.Text}>
-            Please enter a key and a message to encipher.
-          </Text>
-          <Text style={styles.Text}>Key:</Text>
-          <TextInput
-            style={styles.input}
-            keyboardType="number-pad"
-            value={thisKey.toString()}
-            numberOfLines={1}
-            onChangeText={(newValue) => setKey(newValue)}
-          />
-          <Text style={styles.Text}>Message:</Text>
-          <TextInput
-            style={styles.input}
-            autoCapitalize="none"
-            multiline={true}
-            autoCorrect={false}
-            value={thisMessage}
-            numberOfLines={5}
-            onChangeText={(newValue) => setMessage(newValue)}
-          />
+        <Text style={styles.Text}>
+          Please enter a key and a message to encipher.
+        </Text>
+        <Text style={styles.Text}>Key:</Text>
+        <TextInput
+          style={[styles.input, { paddingTop: 0 }]}
+          keyboardType="number-pad"
+          value={thisKey.toString()}
+          numberOfLines={1}
+          onChangeText={(newValue) => setKey(newValue)}
+        />
+        <Text style={styles.Text}>Message:</Text>
+        <TextInput
+          style={styles.input}
+          textAlignVertical={"top"}
+          autoCapitalize="none"
+          multiline={true}
+          autoCorrect={false}
+          value={thisMessage}
+          numberOfLines={5}
+          onChangeText={(newValue) => setMessage(newValue)}
+        />
 
-          {/* <Text>Ciphertext:</Text>
+        {/* <Text>Ciphertext:</Text>
             <TextInput
                 style={styles.output}
                 multiline={true}
@@ -225,18 +221,18 @@ const CipherScreen = ({ navigation }) => {
                 editable={false}
             /> */}
 
-          <Text style={styles.Text}>Output:</Text>
-          <TextInput
-            style={styles.output}
-            multiline={true}
-            value={thisOutput}
-            editable={false}
-            numberOfLines={5}
-          />
-        </ScrollView>
+        <Text style={styles.Text}>Output:</Text>
+        <TextInput
+          style={styles.output}
+          multiline={true}
+          value={thisOutput}
+          editable={false}
+          numberOfLines={5}
+          textAlignVertical={"top"}
+        />
       </View>
 
-      <View style={{ flex: 2 }}>
+      <View style={{ flex: 2, backgroundColor: "#a3ddcb" }}>
         <View style={styles.listContainer}>
           <FlatList
             horizontal
@@ -361,6 +357,7 @@ const styles = StyleSheet.create({
   input: {
     margin: 15,
     paddingHorizontal: 10,
+    paddingTop: 10,
     borderColor: "black",
     borderWidth: 1,
     borderRadius: 10,
@@ -368,10 +365,8 @@ const styles = StyleSheet.create({
   },
   output: {
     margin: 15,
-    color: "white",
-    textAlign: "center",
-    fontWeight: "700",
-    fontSize: 20,
+    paddingHorizontal: 10,
+    paddingTop: 10,
     color: "black",
     borderColor: "black",
     borderWidth: 1,
@@ -407,7 +402,7 @@ const styles = StyleSheet.create({
   listContainer: {
     borderTopWidth: 1,
     borderBottomWidth: 1,
-    backgroundColor: "white",
+    backgroundColor: "#a3ddcb",
   },
 });
 
