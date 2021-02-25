@@ -1,18 +1,8 @@
 import React from "react";
-import {
-  View,
-  StyleSheet,
-  Text,
-  Button,
-  TouchableOpacity,
-  FlatList,
-} from "react-native";
-import CipherButton from "../components/CipherButton";
+import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 
 const CiphersScreen = ({ navigation }) => {
-  const screenList = [{ key: "1" }, {}];
-
   return (
     <View>
       <Text style={styles.Text}>

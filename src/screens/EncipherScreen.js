@@ -4,74 +4,10 @@ import {
   StyleSheet,
   Text,
   TextInput,
-  Button,
   TouchableOpacity,
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
-
-function trimString(word) {
-  let newWord = "";
-  newWord = word.replace(" ", "");
-  newWord = newWord.replace(/(\r\n|\n|\r)/gm, "");
-  return newWord.toUpperCase();
-}
-
-function createTable(length, key) {
-  // creates rows
-  let table = new Array(key);
-
-  // creates columns
-  for (let col = 0; col < table.length; col++) {
-    table[col] = new Array(length);
-  }
-  return table;
-}
-
-function tableCreatePattern(table, word, key) {
-  let row = -1;
-  let sign = 1;
-  for (let col = 0; col < word.length; col++) {
-    if (row === key - 1) {
-      sign = -1;
-    }
-    if (row === 0) {
-      sign = 1;
-    }
-
-    row += sign;
-
-    table[row][col] = word[col];
-  }
-  return table;
-}
-
-function cipher(word, key) {
-  if (
-    typeof word !== "string" ||
-    word === "" ||
-    typeof key !== "number" ||
-    key < 2 ||
-    isNaN(key)
-  )
-    return () =>
-      alert(
-        "Please enter a valid Key and Message. The key must be equal to or greater than 2."
-      );
-
-  let newWord = trimString(word);
-  let table = createTable(newWord.length, key);
-  table = tableCreatePattern(table, newWord, key);
-
-  // Extract ciphertext
-  let ciphertext = "";
-  for (let row = 0; row < key; row++) {
-    for (let col = 0; col < newWord.length; col++) {
-      if (table[row][col] !== undefined) ciphertext += table[row][col];
-    }
-  }
-
-  return ciphertext;
-}
+import { cipher } from "../algorithms/k-RailCipher";
 
 const EncipherScreen = ({ navigation }) => {
   const [thisKey, setKey] = useState("");
