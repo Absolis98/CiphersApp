@@ -523,7 +523,7 @@ export function cipher(plaintext, key, keyLength) {
   for (let i = 0; i < blocks.length; i++) {
     blocks[i] = binary2hex(blocks[i]);
   }
-  return blocks;
+  return blocks.join("");
 }
 
 function completeKeyLength(key, length) {
@@ -580,15 +580,15 @@ export function decipher(ciphertext, key, keyLength) {
   return blocks;
 }
 
-console.log(cipher("AAAAAAAA", "AAAAAAAAAA", 80));
-console.log(
-  decipher(cipher("AAAAAAAA", "AAAAAAAAAA", 80)[0], "AAAAAAAAAA", 80)
-);
-console.log(cipher("AAAAAAAA", "AAAAAAAAAAAAAAAA", 128));
-console.log(
-  decipher(
-    cipher("AAAAAAAA", "AAAAAAAAAAAAAAAA", 128)[0],
-    "AAAAAAAAAAAAAAAA",
-    128
-  )
-);
+// console.log(cipher("AAAAAAAA", "AAAAAAAAAA", 80));
+// console.log(
+//   decipher(cipher("AAAAAAAA", "AAAAAAAAAA", 80)[0], "AAAAAAAAAA", 80)
+// );
+// console.log(cipher("AAAAAAAA", "AAAAAAAAAAAAAAAA", 128));
+// console.log(
+//   decipher(
+//     cipher("AAAAAAAA", "AAAAAAAAAAAAAAAA", 128)[0],
+//     "AAAAAAAAAAAAAAAA",
+//     128
+//   )
+// );

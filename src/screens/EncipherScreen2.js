@@ -24,18 +24,15 @@ const EncipherScreen2 = ({ navigation }) => {
         <Text style={styles.Text}>Key:</Text>
         <TextInput
           style={[styles.input, { paddingTop: 0 }]}
-          keyboardType="number-pad"
           value={thisKey.toString()}
           numberOfLines={1}
           onChangeText={(newValue) => setKey(newValue)}
         />
         <View style={{ flexDirection: "row", justifyContent: "space-around" }}>
           <TouchableOpacity
-            onPress={(messagez, keyz) => {
-              messagez = thisMessage;
-              keyz = parseInt(thisKey);
-              console.log(typeof messagez, typeof keyz);
-              setCiphertext(cipher(messagez, keyz));
+            onPress={() => {
+              setKeySize(80);
+              console.log(thisKeySize);
             }}
             style={{ marginBottom: 1 }}
           >
@@ -51,11 +48,9 @@ const EncipherScreen2 = ({ navigation }) => {
             </LinearGradient>
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={(messagez, keyz) => {
-              messagez = thisMessage;
-              keyz = parseInt(thisKey);
-              console.log(typeof messagez, typeof keyz);
-              setCiphertext(cipher(messagez, keyz));
+            onPress={() => {
+              setKeySize(128);
+              console.log(thisKeySize);
             }}
             style={{ marginBottom: 1 }}
           >
@@ -105,7 +100,7 @@ const EncipherScreen2 = ({ navigation }) => {
       >
         {/* Encipher Button */}
         <TouchableOpacity
-          onPress={(messagez, keyz) => {
+          onPress={(messagez, keyz, keysizez) => {
             messagez = thisMessage;
             keyz = parseInt(thisKey);
             keysizez = parseInt(thisKeySize);
