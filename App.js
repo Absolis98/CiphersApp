@@ -11,6 +11,11 @@ import DecipherScreen from "./src/screens/DecipherScreen";
 import DemoScreen from "./src/screens/DemoScreen";
 import CiphersScreen from "./src/screens/CiphersScreen";
 
+import HomeScreen2 from "./src/screens/HomeScreen2";
+import EncipherScreen2 from "./src/screens/EncipherScreen2";
+import DecipherScreen2 from "./src/screens/DecipherScreen2";
+import DemoScreen2 from "./src/screens/DemoScreen2";
+
 const Stack = createStackNavigator();
 const CipherTab = createBottomTabNavigator();
 
@@ -66,6 +71,58 @@ const CipherTabScreen = () => (
   </CipherTab.Navigator>
 );
 
+const CipherTabScreen2 = () => (
+  <CipherTab.Navigator
+    screenOptions={({ route }) => ({
+      cardStyle: { backgroundColor: "#ffe3de" },
+      tabBarIcon: ({ focused, color, size }) => {
+        let iconName;
+
+        if (route.name === "HomeScreen2") {
+          iconName = focused ? "home-sharp" : "home-outline";
+        } else if (route.name === "EncipherScreen2") {
+          iconName = focused ? "lock-closed-sharp" : "lock-closed-outline";
+        } else if (route.name === "DecipherScreen2") {
+          iconName = focused ? "lock-open-sharp" : "lock-open-outline";
+        } else if (route.name === "DemoScreen2") {
+          iconName = focused ? "play-circle-sharp" : "play-circle-outline";
+        }
+
+        return <Ionicons name={iconName} size={size} color={color} />;
+      },
+    })}
+    tabBarOptions={{
+      // keyboardHidesTabBar: true,
+      style: {
+        backgroundColor: "#03506f",
+      },
+      activeTintColor: "#a3ddcb",
+      inactiveTintColor: "white",
+    }}
+  >
+    <CipherTab.Screen
+      name="HomeScreen2"
+      component={HomeScreen2}
+      options={{ title: "Home" }}
+    />
+    <CipherTab.Screen
+      name="EncipherScreen2"
+      component={EncipherScreen2}
+      options={{ title: "Encipher" }}
+    />
+    <CipherTab.Screen
+      name="DecipherScreen2"
+      component={DecipherScreen2}
+      options={{ title: "Decipher" }}
+    />
+    <CipherTab.Screen
+      name="DemoScreen2"
+      component={DemoScreen2}
+      options={{ title: "Demo" }}
+    />
+  </CipherTab.Navigator>
+);
+
 function App() {
   return (
     <NavigationContainer>
@@ -112,6 +169,11 @@ function App() {
           name="CipherTabScreen"
           component={CipherTabScreen}
           options={{ title: "K-Rail Fence Cipher" }}
+        />
+        <Stack.Screen
+          name="CipherTabScreen2"
+          component={CipherTabScreen2}
+          options={{ title: "PRESENT Block Cipher" }}
         />
       </Stack.Navigator>
     </NavigationContainer>
