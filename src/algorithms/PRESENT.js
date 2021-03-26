@@ -523,7 +523,11 @@ export function cipher(plaintext, key, keyLength) {
   for (let i = 0; i < blocks.length; i++) {
     blocks[i] = binary2hex(blocks[i]);
   }
-  return blocks.join("");
+  return blocks;
+}
+
+export function ciphertextString(plaintext, key, keyLength) {
+  return cipher(plaintext, key, keyLength).join("");
 }
 
 function completeKeyLength(key, length) {

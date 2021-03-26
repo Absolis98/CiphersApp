@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
-import { cipher } from "../algorithms/PRESENT";
+import { ciphertextString } from "../algorithms/PRESENT";
 
 const EncipherScreen2 = ({ navigation }) => {
   const [thisKey, setKey] = useState("");
@@ -102,10 +102,10 @@ const EncipherScreen2 = ({ navigation }) => {
         <TouchableOpacity
           onPress={(messagez, keyz, keysizez) => {
             messagez = thisMessage;
-            keyz = parseInt(thisKey);
+            keyz = thisKey;
             keysizez = parseInt(thisKeySize);
             console.log(typeof messagez, typeof keyz);
-            setCiphertext(cipher(messagez, keyz, keysizez));
+            setCiphertext(ciphertextString(messagez, keyz, keysizez));
           }}
           style={{ marginBottom: 1 }}
         >
