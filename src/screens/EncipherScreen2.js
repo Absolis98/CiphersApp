@@ -5,19 +5,32 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
+  ScrollView,
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
-import { ciphertextString } from "../algorithms/PRESENT";
+import { encrypt } from "../algorithms/PRESENT";
 
 const EncipherScreen2 = ({ navigation }) => {
   const [thisKey, setKey] = useState("");
   const [thisKeySize, setKeySize] = useState(80);
+  const [btn1Selected, setBtn1Selected] = useState(["#43C6AC", "#191654"]);
+  const [btn2Selected, setBtn2Selected] = useState(["#226d5e", "#0d0c2c"]);
   const [thisMessage, setMessage] = useState("");
   const [thisCiphertext, setCiphertext] = useState("");
 
+  const toggleSelected = (btnNum) => {
+    if (btnNum === 1) {
+      setBtn1Selected(["#43C6AC", "#191654"]);
+      setBtn2Selected(["#226d5e", "#0d0c2c"]);
+    } else if (btnNum === 2) {
+      setBtn1Selected(["#226d5e", "#0d0c2c"]);
+      setBtn2Selected(["#43C6AC", "#191654"]);
+    }
+  };
+
   return (
     <View style={styles.container}>
-      <View style={{ flex: 5 }}>
+      <ScrollView style={{ flex: 5 }}>
         <Text style={styles.Text}>
           Please enter a key and a message to encipher.
         </Text>
@@ -32,36 +45,38 @@ const EncipherScreen2 = ({ navigation }) => {
           <TouchableOpacity
             onPress={() => {
               setKeySize(80);
+              toggleSelected(1);
               console.log(thisKeySize);
             }}
-            style={{ marginBottom: 1 }}
+            style={[{ marginBottom: 1 }, btn1Selected]}
           >
             <LinearGradient
               style={[styles.button, { height: 30 }]}
-              colors={["#43C6AC", "#191654"]}
+              colors={btn1Selected}
               start={[0, 0]}
               end={[1, 1]}
             >
               <Text style={[styles.buttonText, { fontSize: 15 }]}>
-                80 BIt Key
+                80 Bit Key
               </Text>
             </LinearGradient>
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => {
               setKeySize(128);
+              toggleSelected(2);
               console.log(thisKeySize);
             }}
-            style={{ marginBottom: 1 }}
+            style={[{ marginBottom: 1 }, btn2Selected]}
           >
             <LinearGradient
               style={[styles.button, { height: 30 }]}
-              colors={["#43C6AC", "#191654"]}
+              colors={btn2Selected}
               start={[0, 0]}
               end={[1, 1]}
             >
               <Text style={[styles.buttonText, { fontSize: 15 }]}>
-                128 BIt Key
+                128 Bit Key
               </Text>
             </LinearGradient>
           </TouchableOpacity>
@@ -84,15 +99,15 @@ const EncipherScreen2 = ({ navigation }) => {
           style={styles.output}
           multiline={true}
           value={thisCiphertext}
-          editable={false}
+          // editable={false}
           textAlignVertical={"top"}
           numberOfLines={8}
         />
-      </View>
+      </ScrollView>
 
       <View
         style={{
-          flex: 1,
+          flex: 0.17,
           flexDirection: "row",
           justifyContent: "space-around",
           backgroundColor: "#a3ddcb",
@@ -102,10 +117,10 @@ const EncipherScreen2 = ({ navigation }) => {
         <TouchableOpacity
           onPress={(messagez, keyz, keysizez) => {
             messagez = thisMessage;
-            keyz = thisKey;
+            keyz = thisKey.toUpperCase();
             keysizez = parseInt(thisKeySize);
             console.log(typeof messagez, typeof keyz);
-            setCiphertext(ciphertextString(messagez, keyz, keysizez));
+            setCiphertext(encrypt(messagez, keyz, keysizez));
           }}
           style={{ marginBottom: 1 }}
         >
