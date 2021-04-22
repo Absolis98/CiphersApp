@@ -1,3 +1,8 @@
+var bigInt = require("big-integer");
+
+var test = bigInt("55");
+console.log(test);
+
 const alphaKey = [
     "A",
     "B",
@@ -56,6 +61,7 @@ const alphaKey = [
     ",",
     "\'",
   ]
+
   
   function isPrime(num) {
     if (num <= 3) return num > 1;
@@ -154,7 +160,7 @@ const alphaKey = [
     return list[Math.floor(Math.random() * list.length)];
   }
   
-  function generateKeys(pqLimit=500, dLimit=2) {
+  export function generateKeys(pqLimit=500, dLimit=2) {
     let pq = generateRandomPQ(pqLimit);
     let n = calculateN(pq)
     let e = calculateE(pq);
@@ -163,25 +169,27 @@ const alphaKey = [
   }
   
   // must have a way to regenerate keys if they produce invalid output
-  function encrypt(message, keys) {
+export function encrypt(message, keys) {
       let newMessage = '';
       let encryptedValue;
       let encryptedValues = [];
       for(let i = 0; i < message.length; i++) {
-        encryptedValue = BigInt(alphaKey.indexOf(message[i]))**BigInt(keys[0]) % BigInt(keys[2]);
+        encryptedValue = bigInt(alphaKey.indexOf(message[i])).modPow(keys[0], keys[2]);
+        // encryptedValue = BigInt(alphaKey.indexOf(message[i]))**BigInt(keys[0]) % BigInt(keys[2]);
         encryptedValues.push(encryptedValue);
-        newMessage += alphaKey[(encryptedValue % BigInt(55))];
+        newMessage += alphaKey[(encryptedValue.mod(55))];
       }
       return [newMessage, encryptedValues];
   }
   
-  function decrypt(ciphertext, keys) {
+export function decrypt(ciphertext, keys) {
       let plaintext = '';
       for(let i = 0; i < ciphertext[1].length; i++) {
         console.log("about to pass")
-        plaintext += alphaKey[((ciphertext[1][i])**BigInt(keys[1]) % BigInt(keys[2]))];
+        plaintext += alphaKey[bigInt(ciphertext[1][i]).modPow(keys[1], keys[2])]
+        // plaintext += alphaKey[((ciphertext[1][i])**BigInt(keys[1]) % BigInt(keys[2]))];
         console.log("passed")
       }
   
-      return plaintext;
+      return [plaintext];
   }

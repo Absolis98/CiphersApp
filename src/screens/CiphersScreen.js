@@ -29,6 +29,16 @@ const CiphersScreen = ({ navigation }) => {
           <Text style={styles.buttonText}>PRESENT Block Cipher</Text>
         </LinearGradient>
       </TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.push("RSACipherTabScreen")}>
+        <LinearGradient
+          style={styles.button}
+          colors={["#43C6AC", "#191654"]}
+          start={[0, 0]}
+          end={[1, 1]}
+        >
+          <Text style={styles.buttonText}>RSA Cipher</Text>
+        </LinearGradient>
+      </TouchableOpacity>
     </View>
   );
 };

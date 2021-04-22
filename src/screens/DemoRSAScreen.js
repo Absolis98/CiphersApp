@@ -10,10 +10,10 @@ import {
   TouchableNativeFeedbackBase
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
-import { encrypt, decrypt } from "../algorithms/PRESENT";
+import { encrypt, decrypt, generateKeys } from "../algorithms/rsa";
 
 const DemoScreen2 = ({ navigation }) => {
-  const [thisKey, setKey] = useState("");
+  const [thisKey, setKey] = useState(["none", "none", "none"]);
   const [thisKeySize, setKeySize] = useState(80);
   const [btn1Selected, setBtn1Selected] = useState(["#43C6AC", "#191654"]);
   const [btn2Selected, setBtn2Selected] = useState(["#226d5e", "#0d0c2c"]);
@@ -63,56 +63,31 @@ const DemoScreen2 = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <ScrollView style={{ flex: 4 }}>
-        <Text style={styles.Text}>
-          Please enter a key and a message to encipher.
+        <Text style={[styles.Text, {marginTop: 10}]}>
+          Please generate a key and type in a message to encipher.
         </Text>
-        <Text style={styles.Text}>Key:</Text>
-        <TextInput
-          style={[styles.input, { paddingTop: 0 }]}
-          value={thisKey.toString()}
-          numberOfLines={1}
-          onChangeText={(newValue) => setKey(newValue)}
-        />
-        <View style={{ flexDirection: "row", justifyContent: "space-around" }}>
+        <Text style={styles.Text}>Keys:</Text>
+        <Text style={[styles.Text, {marginTop: 10}]}>Public Key (e, n): {"(" + thisKey[0] + ", " + thisKey[2] + ")"}</Text>
+        <Text style={[styles.Text, {marginTop: 10}]}>Private Key (d, n): {"(" + thisKey[1] + ", " + thisKey[2] + ")"}</Text>
           <TouchableOpacity
             onPress={() => {
-              setKeySize(80);
-              toggleSelected(1);
-              console.log(thisKeySize);
+              let keys = generateKeys();
+              setKey(keys);
+              console.log(thisKey);
             }}
             style={{ marginBottom: 1 }}
           >
             <LinearGradient
-              style={[styles.button, { height: 30, justifyContent: 'center' }]}
+              style={[styles.button, { height: 45, width: "80%", justifyContent: 'center' }]}
               colors={btn1Selected}
               start={[0, 0]}
               end={[1, 1]}
             >
               <Text style={[styles.buttonText, { fontSize: 15 }]}>
-                80 Bit Key
+                Generate Key
               </Text>
             </LinearGradient>
           </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => {
-              setKeySize(128);
-              toggleSelected(2);
-              console.log(thisKeySize);
-            }}
-            style={{ marginBottom: 1 }}
-          >
-            <LinearGradient
-              style={[styles.button, { height: 30, justifyContent: 'center' }]}
-              colors={btn2Selected}
-              start={[0, 0]}
-              end={[1, 1]}
-            >
-              <Text style={[styles.buttonText, { fontSize: 15 }]}>
-                128 Bit Key
-              </Text>
-            </LinearGradient>
-          </TouchableOpacity>
-        </View>
         <Text style={styles.Text}>Message:</Text>
         <TextInput
           style={styles.input}
@@ -141,7 +116,7 @@ const DemoScreen2 = ({ navigation }) => {
         <TextInput
           style={styles.output}
           multiline={true}
-          value={thisOutput}
+          value={thisOutput[0]}
           editable={false}
           numberOfLines={5}
           textAlignVertical={"top"}
@@ -175,13 +150,13 @@ const DemoScreen2 = ({ navigation }) => {
                   <LinearGradient
                     style={[
                       styles.button,
-                      { height: 75, justifyContent: "center", width: 95 },
+                      { height: 60, justifyContent: "center", width: 95, marginLeft: 13, marginRight: 13 },
                     ]}
                     colors={["#43C6AC", "#191654"]}
                     start={[0, 0]}
                     end={[1, 1]}
                   >
-                    <Text style={styles.buttonText}>{item.name}</Text>
+                    <Text style={[styles.buttonText, { fontSize: 17}]}>{item.name}</Text>
                   </LinearGradient>
                 </TouchableOpacity>
               );
@@ -189,15 +164,14 @@ const DemoScreen2 = ({ navigation }) => {
           />
         </View>
 
-        {/* Encipher Button */}
+        {/* Encrypt Button */}
         <View style={styles.rowContainer}>
           <View style={styles.buttonContainer}>
             <TouchableOpacity
-              onPress={(messagez, keyz, keysizez) => {
+              onPress={(messagez, keyz) => {
                 messagez = thisPlaintext;
-                keyz = thisKey.toUpperCase();
-                keysizez = parseInt(thisKeySize);
-                let ciphertext = encrypt(messagez, keyz, keysizez);
+                keyz = thisKey;
+                let ciphertext = encrypt(messagez, keyz);
                 console.log(typeof ciphertext);
                 if (!(typeof ciphertext === "function")) {
                   setCiphertext(ciphertext);
@@ -211,7 +185,7 @@ const DemoScreen2 = ({ navigation }) => {
                 start={[0, 0]}
                 end={[1, 1]}
               >
-                <Text style={styles.buttonText}>Encipher</Text>
+                <Text style={styles.buttonText}>Encrypt</Text>
               </LinearGradient>
             </TouchableOpacity>
           </View>
@@ -219,11 +193,10 @@ const DemoScreen2 = ({ navigation }) => {
           {/* Decipher Button */}
           <View style={styles.buttonContainer}>
             <TouchableOpacity
-              onPress={(messagez, keyz, keysizez) => {
+              onPress={(messagez, keyz) => {
                 messagez = thisCiphertext;
-                keyz = thisKey.toUpperCase();
-                keysizez = parseInt(thisKeySize);
-                let plaintext = decrypt(messagez, keyz, keysizez);
+                keyz = thisKey;
+                let plaintext = decrypt(messagez, keyz);
                 console.log(typeof plaintext);
                 if (!(typeof plaintext === "function")) {
                   setPlaintext(plaintext);
@@ -237,7 +210,7 @@ const DemoScreen2 = ({ navigation }) => {
                 start={[0, 0]}
                 end={[1, 1]}
               >
-                <Text style={styles.buttonText}>Decipher</Text>
+                <Text style={styles.buttonText}>Decrypt</Text>
               </LinearGradient>
             </TouchableOpacity>
           </View>
@@ -248,7 +221,7 @@ const DemoScreen2 = ({ navigation }) => {
           onPress={() => {
             setCiphertext("");
             setPlaintext("");
-            setKey("");
+            setKey(["none", "none", "none"]);
             setMessage("");
             setOutput("");
           }}
@@ -304,6 +277,7 @@ const styles = StyleSheet.create({
   },
   Text: {
     marginLeft: 20,
+    fontSize: 15
   },
   buttonText: {
     color: "white",

@@ -16,6 +16,9 @@ import EncipherScreen2 from "./src/screens/EncipherScreen2";
 import DecipherScreen2 from "./src/screens/DecipherScreen2";
 import DemoScreen2 from "./src/screens/DemoScreen2";
 
+import HomeRSAScreen from './src/screens/HomeRSAScreen';
+import DemoRSAScreen from './src/screens/DemoRSAScreen';
+
 const Stack = createStackNavigator();
 const CipherTab = createBottomTabNavigator();
 
@@ -123,6 +126,48 @@ const CipherTabScreen2 = () => (
   </CipherTab.Navigator>
 );
 
+const RSACipherTabScreen = () => (
+  <CipherTab.Navigator
+    screenOptions={({ route }) => ({
+      cardStyle: { backgroundColor: "#ffe3de" },
+      tabBarIcon: ({ focused, color, size }) => {
+        let iconName;
+
+        if (route.name === "HomeRSAScreen") {
+          iconName = focused ? "home-sharp" : "home-outline";
+        // } else if (route.name === "EncipherScreen2") {
+        //   iconName = focused ? "lock-closed-sharp" : "lock-closed-outline";
+        // } else if (route.name === "DecipherScreen2") {
+        //   iconName = focused ? "lock-open-sharp" : "lock-open-outline";
+        } else if (route.name === "DemoRSAScreen") {
+          iconName = focused ? "play-circle-sharp" : "play-circle-outline";
+        }
+
+        return <Ionicons name={iconName} size={size} color={color} />;
+      },
+    })}
+    tabBarOptions={{
+      // keyboardHidesTabBar: true,
+      style: {
+        backgroundColor: "#03506f",
+      },
+      activeTintColor: "#a3ddcb",
+      inactiveTintColor: "white",
+    }}
+  >
+    <CipherTab.Screen
+      name="HomeRSAScreen"
+      component={HomeRSAScreen}
+      options={{ title: "Home" }}
+    />
+    <CipherTab.Screen
+      name="DemoRSAScreen"
+      component={DemoRSAScreen}
+      options={{ title: "Demo" }}
+    />
+  </CipherTab.Navigator>
+);
+
 function App() {
   return (
     <NavigationContainer>
@@ -174,6 +219,12 @@ function App() {
           name="CipherTabScreen2"
           component={CipherTabScreen2}
           options={{ title: "PRESENT Block Cipher" }}
+        />
+        
+        <Stack.Screen
+          name="RSACipherTabScreen"
+          component={RSACipherTabScreen}
+          options={{ title: "RSA Cipher" }}
         />
       </Stack.Navigator>
     </NavigationContainer>
