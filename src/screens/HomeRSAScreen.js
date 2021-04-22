@@ -27,9 +27,13 @@ const HomeScreen = ({ navigation }) => {
         </Text>
         <Image
           style={styles.image}
-          source={require("../../assets/present.png")}
+          source={require("../../assets/rsa.png")}
         />
         <Text>Encryption:</Text>
+        <Image
+          style={styles.image}
+          source={require("../../assets/rsa2.png")}
+        />
         <Text>
           To begin the encryption, process the plaintext is organized into
           64-bit blocks, and the key is computed, checking to make sure that it
@@ -46,6 +50,10 @@ const HomeScreen = ({ navigation }) => {
           into hexadecimal and returned as the desired ciphertext.
         </Text>
         <Text>Decryption</Text>
+        <Image
+          style={styles.image}
+          source={require("../../assets/rsa3.png")}
+        />
         <Text>
           To begin deciphering the plaintext we begin by putting the cipher text
           into blocks and sending the blocks through a function to convert their

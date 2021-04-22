@@ -22,6 +22,11 @@ const DemoScreen2 = ({ navigation }) => {
   const [thisCiphertext, setCiphertext] = useState("");
   const [thisOutput, setOutput] = useState("");
 
+  console.log("1 "+thisPlaintext)
+  console.log("1 "+thisCiphertext)
+  console.log("1 " + thisOutput)
+  console.log("1 " + thisKey)
+
   const toggleSelected = (btnNum) => {
     if (btnNum === 1) {
       setBtn1Selected(["#43C6AC", "#191654"]);
@@ -33,30 +38,18 @@ const DemoScreen2 = ({ navigation }) => {
   };
 
   let buttonList = [
-    { name: "Demo 1", type: "plaintext", message: "Hello World", key: "aaaaaaaaaa", keySize: "80" },
-    {
-      name: "Demo 2",
-      type: "ciphertext",
-      message:
-        "0FD763A3925D27E14A377A4A58497D896B7829949B03603B700E36CDC5E312FE97751DECC71BDFD1517C481D5BD4E00DA5BB188B2F92637FA7F63B1A01969C04B580D68BFB9BAFF4",
-      key: "Strawberry",
-      keySize: "80"
-    },
+    { name: "Demo 1", type: "plaintext", message: "Hello World"},
     {
       name: "Demo 3",
       type: "plaintext",
       message:
-        "I used the Stones to destroy the Stones It nearly killed me but the work is done It always will be",
-      key: "Government",
-      keySize: "128"
+        "I used the Stones to destroy the Stones It nearly killed me but the work is done It always will be"
     },
     {
       name: "Demo 4",
       type: "plaintext",
       message:
-        "I know what its like to lose To feel so desperately that youre right, yet to fail nonetheless",
-      key: "Technology",
-      keySize: "128"
+        "I know what its like to lose To feel so desperately that youre right, yet to fail nonetheless"
     },
   ];
 
@@ -141,8 +134,6 @@ const DemoScreen2 = ({ navigation }) => {
                       setCiphertext(item.message);
                       setPlaintext("");
                     }
-                    setKey(item.key);
-                    setKeySize(item.keySize);
                     setMessage(item.message);
                     setOutput("");
                   }}
@@ -169,8 +160,15 @@ const DemoScreen2 = ({ navigation }) => {
           <View style={styles.buttonContainer}>
             <TouchableOpacity
               onPress={(messagez, keyz) => {
-                messagez = thisPlaintext;
+                if(Array.isArray(thisPlaintext)){
+                  messagez = thisPlaintext[0]
+                } else messagez = thisPlaintext;
+                
                 keyz = thisKey;
+                console.log("-------------")
+                console.log(messagez)
+                console.log(keyz)
+                console.log("-------------")
                 let ciphertext = encrypt(messagez, keyz);
                 console.log(typeof ciphertext);
                 if (!(typeof ciphertext === "function")) {
