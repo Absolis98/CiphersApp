@@ -271,6 +271,8 @@ function strXOR(str1, str2) {
   return newKey;
 }
 
+
+
 function roundKeyXOR(key, i) {
   let newKey = "";
   i = i.toString(2);
@@ -291,7 +293,6 @@ function roundKeyXOR(key, i) {
     return newKey;
 
   }
- 
 }
 
 function generateRoundKeys80(key, rounds=32) {
@@ -333,6 +334,21 @@ function hexBlocks2Binary(blocks) {
   return blocks;
 }
 
+
+function completeKeyLength(key, length) {
+  key = str2binary(key);
+  console.log("key: " + key)
+  if(key.length === length) return key;
+  else if(key.length < length) {
+    while(key.length !== length) {
+      key += "0100";
+    }
+    return key;
+  } else if(key.length > length) {
+    alert("Key too large!!");
+  }
+}
+
 export function encrypt(plaintext, key, keyLength) {
   if (
     plaintext === "" ||
@@ -357,21 +373,33 @@ export function encrypt(plaintext, key, keyLength) {
   }
 
   for(let i = 0; i < keys.length; i++) {
+
+        if(i === 31) {
+          for(let j = 0; j < blocks.length; j++){
+            blocks[j] = strXOR(blocks[j], keys[i]);
+          }
+        }
       for(let j = 0; j < blocks.length; j++) {
         if(i === 31) {
-          for(let k = 0; k < blocks.length; k++){
-            blocks[k] = strXOR(blocks[k], keys[i]);
-          }
 
           break;
         }
         // step 1: xor plaintext and key
         blocks[j] = strXOR(blocks[j], keys[i]);
+      }
+      for(let j = 0; j < blocks.length; j++) {
+        if(i === 31) {
+          break;
+        }
         // step 2: sbox every 4 groups of bits
         blocks[j] = sBoxLayer(blocks[j]);
+      }
+      for(let j = 0; j < blocks.length; j++) {
+        if(i === 31) {
+          break;
+        }
         // step 3: permutate
         blocks[j] = pLayer(blocks[j]);
-        // console.log("Round Key " + (i+1) + ": "+ binary2hex(blocks[j]));
       }
     }
     // console.log("Round Key " + 32 + ": "+ binary2hex(blocks[blocks.length-1]))
@@ -384,18 +412,6 @@ export function encrypt(plaintext, key, keyLength) {
 }
 
 
-function completeKeyLength(key, length) {
-  key = str2binary(key);
-  if(key.length === length) return key;
-  else if(key.length < length) {
-    while(key.length !== length) {
-      key += "0100";
-    }
-    return key;
-  } else if(key.length > length) {
-    alert("Key too large!!");
-  }
-}
 
 export function decrypt(ciphertext, key, keyLength) {
   if (
@@ -422,20 +438,33 @@ export function decrypt(ciphertext, key, keyLength) {
   }
 
   for(let i = 31; i >= 0; i--) {
+        if(i === 0) {
+          for(let j = 0; j < blocks.length; j++){
+            blocks[j] = strXOR(blocks[j], keys[i]);
+          }
+        }
       for(let j = 0; j < blocks.length; j++) {
         if(i === 0) {
-          
-          blocks[j] = strXOR(blocks[j], keys[i]);
+
           break;
         }
         // step 1: xor plaintext and key
         blocks[j] = strXOR(blocks[j], keys[i]);
+      }
+      for(let j = 0; j < blocks.length; j++) {
+        if(i === 0) {
+
+          break;
+        }
         // step 2: permutate
         blocks[j] = pLayerDec(blocks[j]);
+      }
+      for(let j = 0; j < blocks.length; j++) {
+        if(i === 0) {
+          break;
+        }
         // step 3: sbox every 4 groups of bits
         blocks[j] = sBoxLayerDec(blocks[j]);
-        
-        // console.log("Round Key " + (i+1) + ": "+ binary2hex(blocks[j]));
       }
     }
     // console.log("Round Key " + 1 + ": "+ binary2hex(blocks[blocks.length-1]))

@@ -38,7 +38,7 @@ const DemoScreen2 = ({ navigation }) => {
       name: "Demo 2",
       type: "ciphertext",
       message:
-        "DD6462BA902CF5C4B5085A7F3208A117",
+        "0FD763A3925D27E14A377A4A58497D896B7829949B03603B700E36CDC5E312FE97751DECC71BDFD1517C481D5BD4E00DA5BB188B2F92637FA7F63B1A01969C04B580D68BFB9BAFF4",
       key: "Strawberry",
       keySize: "80"
     },
@@ -46,47 +46,17 @@ const DemoScreen2 = ({ navigation }) => {
       name: "Demo 3",
       type: "plaintext",
       message:
-        "I used the Stones to destroy the Stones. It nearly killed me, but the work is done. It always will be.",
-      key: "11",
+        "I used the Stones to destroy the Stones It nearly killed me but the work is done It always will be",
+      key: "Government",
       keySize: "128"
     },
     {
       name: "Demo 4",
-      type: "ciphertext",
-      message: "PALDELNLTLBRACAHUEFBESIOEYDANHCL..GST.S",
-      key: "7",
-      keySize: "80"
-    },
-    {
-      name: "Demo 5",
       type: "plaintext",
       message:
-        "I know what it’s like to lose. To feel so desperately that you’re right, yet to fail nonetheless.",
-      key: "2",
+        "I know what its like to lose To feel so desperately that youre right, yet to fail nonetheless",
+      key: "Technology",
       keySize: "128"
-    },
-    {
-      name: "Demo 6",
-      type: "ciphertext",
-      message:
-        "LUTEISNIECATIIN.LSTHVIILELTEFFITE.R,LWO.OSSSIEEGNUEEFFXNELICEIII,USRILSTICFUS,TCTLIOLD.E’ANSEEIRSCIEFKTRAETRTCNOSLESUEECIP,TNHESMICD",
-      key: "18",
-      keySize: "80"
-    },
-    {
-      name: "Demo 7",
-      type: "plaintext",
-      message:
-        "Fun isn’t something one considers when balancing the universe. But this… does put a smile on my face.",
-      key: "6",
-      keySize: "128"
-    },
-    {
-      name: "Demo 8",
-      type: "ciphertext",
-      message: "TSGHERNEECEOSHIQRTAOUTWRHISIDCRELETEHL.STS",
-      key: "9",
-      keySize: "80"
     },
   ];
 
